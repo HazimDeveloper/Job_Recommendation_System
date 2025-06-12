@@ -1,20 +1,3 @@
-# Job Recommendation System
-
-The Job Recommendation System is a project that takes resumes as input and recommends the best available jobs in the market based on the content written in the resumes. The system involves data collection from job portals using web scraping, extracting and cleaning data from resumes, mapping jobs by finding similarities, and providing a user-friendly interface using HTML and Flask.
-
-
-
-
-
-https://github.com/Himanshgit5458/Job-Recommendation-system/assets/96855684/9b67e3f0-e624-4841-8302-7d0bd8ead75c
-
-
-## Access the Job Recommendation System
-
-You can access the Job Recommendation System by visiting the following link:
-
-[Job Recommendation System](https://github.com/Himanshgit5458/Job-Recommendation-system)
-
 
 
 ## Table of Contents

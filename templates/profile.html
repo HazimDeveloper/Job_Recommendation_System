@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Profile - JobMatch Pro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .profile-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px 24px 0 0;
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .profile-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+            position: relative;
+        }
+        
+        .avatar i {
+            font-size: 3rem;
+            color: white;
+        }
+        
+        .profile-name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .profile-role {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 1rem;
+        }
+        
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .stat-card {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .profile-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 0 0 24px 24px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .section-title i {
+            color: #667eea;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .info-card {
+            background: white;
+            border: 1px solid #e1e5e9;
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .info-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .info-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .info-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        
+        .skill-tag {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .no-skills {
+            background: #f8f9fa;
+            color: #6c757d;
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            border: 2px dashed #dee2e6;
+        }
+        
+        .no-skills i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #dee2e6;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+            box-shadow: 0 4px 16px rgba(108, 117, 125, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #545b62;
+            transform: translateY(-1px);
+        }
+        
+        .achievement-badge {
+            background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+            }
+            
+            .profile-header,
+            .profile-content {
+                padding: 2rem 1.5rem;
+            }
+            
+            .profile-name {
+                font-size: 2rem;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="profile-header">
+            <div class="avatar">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <h1 class="profile-name">{{ user.name }}</h1>
+            <div class="profile-role">
+                <i class="fas fa-graduation-cap"></i>
+                Fresh Graduate
+            </div>
+            
+            <div class="profile-stats">
+                <div class="stat-card">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Applications</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">{{ user.skills|length if user.skills else 0 }}</div>
+                    <div class="stat-label">Skills</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Profile Views</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="profile-content">
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-info-circle"></i>
+                    Personal Information
+                </h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-label">Full Name</div>
+                        <div class="info-value">
+                            <i class="fas fa-user"></i>
+                            {{ user.name }}
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Account Type</div>
+                        <div class="info-value">
+                            <i class="fas fa-graduation-cap"></i>
+                            Fresh Graduate
+                            <span class="achievement-badge">
+                                <i class="fas fa-star"></i>
+                                Verified
+                            </span>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Member Since</div>
+                        <div class="info-value">
+                            <i class="fas fa-calendar"></i>
+                            January 2024
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Profile Completion</div>
+                        <div class="info-value">
+                            <i class="fas fa-chart-pie"></i>
+                            {{ "75%" if user.skills else "25%" }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+           
+            
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-chart-line"></i>
+                    Career Goals
+                </h2>
+                <div class="info-card">
+                    <div class="info-label">Looking For</div>
+                    <div class="info-value">
+                        <i class="fas fa-briefcase"></i>
+                        Entry-level positions in technology and innovation
+                    </div>
+                </div>
+            </div>
+            
+            <div class="actions">
+                <a href="/" class="btn btn-primary">
+                    <i class="fas fa-home"></i>
+                    Back to Dashboard
+                </a>
+                <a href="/search_jobs" class="btn btn-secondary">
+                    <i class="fas fa-search"></i>
+                    Browse Jobs
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
