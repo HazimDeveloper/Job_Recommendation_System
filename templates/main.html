@@ -272,6 +272,7 @@
             padding: 2rem;
             box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
         }
         
         .jobs-header {
@@ -441,6 +442,139 @@
             margin-bottom: 0.5rem;
             color: #333;
         }
+
+        /* Pagination Styles */
+        .pagination-section {
+            margin-top: 3rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .pagination-info {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pagination-nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            padding: 8px;
+            border-radius: 50px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e1e5e9;
+        }
+
+        .pagination-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .pagination-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .pagination-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+        }
+
+        .pagination-btn.disabled {
+            background: #f8f9fa;
+            color: #6c757d;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .pagination-btn.disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .pagination-btn:not(.active):not(.disabled) {
+            background: #f8f9fa;
+            color: #495057;
+            border-color: #e1e5e9;
+        }
+
+        .pagination-btn:not(.active):not(.disabled):hover {
+            background: #e9ecef;
+            color: #667eea;
+            border-color: #667eea;
+        }
+
+        .pagination-ellipsis {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            color: #6c757d;
+            font-weight: 600;
+        }
+
+        .jobs-count {
+            text-align: center;
+            margin: 2rem 0 1rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .jobs-count strong {
+            color: #667eea;
+        }
+
+        /* Loading state */
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            z-index: 10;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
         
         @media (max-width: 768px) {
             .hero-title {
@@ -474,6 +608,20 @@
             .jobs-header {
                 flex-direction: column;
                 align-items: stretch;
+                text-align: center;
+            }
+
+            .pagination-section {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .pagination-nav {
+                order: 2;
+            }
+            
+            .pagination-info {
+                order: 1;
                 text-align: center;
             }
         }
@@ -648,6 +796,13 @@
             </div>
             
             {% if job_list %}
+            <!-- Job Count Display -->
+            {% if pagination %}
+            <div class="jobs-count">
+                Showing <strong>{{ pagination.start_job }}</strong> to <strong>{{ pagination.end_job }}</strong> of <strong>{{ pagination.total_jobs }}</strong> jobs
+            </div>
+            {% endif %}
+
             <div class="jobs-grid">
                 {% for job in job_list %}
                 <div class="job-card">
@@ -683,6 +838,52 @@
                 </div>
                 {% endfor %}
             </div>
+
+            <!-- Pagination Section -->
+            {% if pagination and pagination.total_pages > 1 %}
+            <div class="pagination-section">
+                <div class="pagination-info">
+                    <i class="fas fa-info-circle"></i>
+                    Page {{ pagination.current_page }} of {{ pagination.total_pages }}
+                </div>
+                
+                <nav class="pagination-nav">
+                    <!-- Previous button -->
+                    {% if pagination.has_prev %}
+                    <a href="{{ url_for('hello', page=pagination.prev_page) }}" class="pagination-btn" title="Previous page">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                    {% else %}
+                    <span class="pagination-btn disabled">
+                        <i class="fas fa-chevron-left"></i>
+                    </span>
+                    {% endif %}
+                    
+                    <!-- Page numbers -->
+                    {% for page_num in pagination.page_range %}
+                        {% if page_num == '...' %}
+                        <span class="pagination-ellipsis">...</span>
+                        {% elif page_num == pagination.current_page %}
+                        <span class="pagination-btn active">{{ page_num }}</span>
+                        {% else %}
+                        <a href="{{ url_for('hello', page=page_num) }}" class="pagination-btn">{{ page_num }}</a>
+                        {% endif %}
+                    {% endfor %}
+                    
+                    <!-- Next button -->
+                    {% if pagination.has_next %}
+                    <a href="{{ url_for('hello', page=pagination.next_page) }}" class="pagination-btn" title="Next page">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                    {% else %}
+                    <span class="pagination-btn disabled">
+                        <i class="fas fa-chevron-right"></i>
+                    </span>
+                    {% endif %}
+                </nav>
+            </div>
+            {% endif %}
+
             {% else %}
             <div class="no-jobs">
                 <i class="fas fa-search"></i>
@@ -722,6 +923,131 @@
             const uploadBtn = document.querySelector('.file-upload-btn span');
             if (fileName) {
                 uploadBtn.textContent = `Selected: ${fileName}`;
+            }
+        });
+
+
+        // Optional: Enhanced pagination with AJAX loading
+        function loadPage(page, showLoader = true) {
+            if (showLoader) {
+                // Show loading overlay
+                const jobsSection = document.querySelector('.jobs-section');
+                const loadingOverlay = document.createElement('div');
+                loadingOverlay.className = 'loading-overlay';
+                loadingOverlay.innerHTML = '<div class="loading-spinner"></div>';
+                jobsSection.style.position = 'relative';
+                jobsSection.appendChild(loadingOverlay);
+            }
+            
+            const currentLocation = document.getElementById('location-filter')?.value || 'all';
+            const url = `/api/jobs?page=${page}&location=${currentLocation}`;
+            
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    // Update jobs grid
+                    updateJobsGrid(data.jobs);
+                    
+                    // Update pagination
+                    updatePagination(data.pagination);
+                    
+                    // Update URL without page reload
+                    const newUrl = page === 1 ? '/' : `/page/${page}`;
+                    window.history.pushState({page: page}, '', newUrl);
+                    
+                    // Remove loading overlay
+                    const overlay = document.querySelector('.loading-overlay');
+                    if (overlay) overlay.remove();
+                    
+                    // Scroll to top of jobs section
+                    document.querySelector('.jobs-section').scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading jobs:', error);
+                    // Remove loading overlay
+                    const overlay = document.querySelector('.loading-overlay');
+                    if (overlay) overlay.remove();
+                });
+        }
+
+        function updateJobsGrid(jobs) {
+            const jobsGrid = document.querySelector('.jobs-grid');
+            if (!jobs.length) {
+                jobsGrid.innerHTML = `
+                    <div class="no-jobs">
+                        <i class="fas fa-search"></i>
+                        <h3>No Jobs Found</h3>
+                        <p>No jobs match your current filters.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const isLoggedIn = window.session && window.session.username;
+            const isStudent = isLoggedIn && window.users[window.session.username]?.role === 'fresh_grad';
+            
+            jobsGrid.innerHTML = jobs.map((job, index) => `
+                <div class="job-card">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-title">${job.Position}</div>
+                            <div class="job-company">${job.Company}</div>
+                        </div>
+                    </div>
+                    <div class="job-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        ${job.Location}
+                    </div>
+                    ${isStudent ? `
+                    <div class="job-actions">
+                        <form method="POST" action="/apply_job" style="display: inline;">
+                            <input type="hidden" name="job_id" value="csv_${index}">
+                            <button type="submit" class="btn-apply">
+                                <i class="fas fa-paper-plane"></i>
+                                Apply Now
+                            </button>
+                        </form>
+                    </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        function updatePagination(pagination) {
+            // Update jobs count
+            const jobsCount = document.querySelector('.jobs-count');
+            if (jobsCount) {
+                jobsCount.innerHTML = `
+                    Showing <strong>${pagination.start_job || 0}</strong> to <strong>${pagination.end_job || 0}</strong> of <strong>${pagination.total_jobs}</strong> jobs
+                `;
+            }
+
+            // Update pagination info
+            const paginationInfo = document.querySelector('.pagination-info');
+            if (paginationInfo) {
+                paginationInfo.innerHTML = `
+                    <i class="fas fa-info-circle"></i>
+                    Page ${pagination.current_page} of ${pagination.total_pages}
+                `;
+            }
+        }
+
+        // Handle browser back/forward buttons
+        window.addEventListener('popstate', function(event) {
+            const page = event.state?.page || 1;
+            loadPage(page, false);
+        });
+
+        // Smooth scroll to top on page load
+        window.addEventListener('load', function() {
+            if (window.location.hash === '#top') {
+                document.querySelector('.jobs-section').scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
             }
         });
     </script>

@@ -103,34 +103,136 @@ def logout():
     flash(f'Goodbye! You have been logged out.')
     return redirect('/')
 
-# Main routes
+# Main routes with Pagination
 @app.route('/')
-def hello():
+@app.route('/page/<int:page>')
+def hello(page=1):
     flash_messages = get_flash_messages()
     
-    # Show recent jobs for all users
-    recent_jobs = []
+    # Configuration
+    jobs_per_page = 12  # Number of jobs per page
+    
+    # Get all unique locations for dropdown (from all data)
+    dropdown_locations = []
     if not df.empty:
-        sample_jobs = df.head(5)
-        for _, row in sample_jobs.iterrows():
+        all_locations = df['Location'].astype(str).str.replace('-', '').unique()
+        dropdown_locations = sorted([loc for loc in all_locations if loc != 'nan' and loc != ''])
+    
+    # Calculate pagination
+    total_jobs = len(df) if not df.empty else 0
+    total_pages = (total_jobs + jobs_per_page - 1) // jobs_per_page  # Ceiling division
+    
+    # Ensure page is within valid range
+    if page < 1:
+        page = 1
+    elif page > total_pages and total_pages > 0:
+        page = total_pages
+    
+    # Get jobs for current page only (lazy loading)
+    recent_jobs = []
+    if not df.empty and total_jobs > 0:
+        start_idx = (page - 1) * jobs_per_page
+        end_idx = start_idx + jobs_per_page
+        page_jobs = df.iloc[start_idx:end_idx]
+        
+        for _, row in page_jobs.iterrows():
             recent_jobs.append({
                 'Position': row['Position'],
                 'Company': row['Company'],
                 'Location': str(row['Location']).replace('-', '')
             })
     
-    dropdown_locations = []
-    if recent_jobs:
-        dropdown_locations = sorted(list(set([job['Location'] for job in recent_jobs])))
+    # Pagination info for template
+    pagination = {
+        'current_page': page,
+        'total_pages': total_pages,
+        'total_jobs': total_jobs,
+        'jobs_per_page': jobs_per_page,
+        'has_prev': page > 1,
+        'has_next': page < total_pages,
+        'prev_page': page - 1 if page > 1 else None,
+        'next_page': page + 1 if page < total_pages else None,
+        'start_job': start_idx + 1 if recent_jobs else 0,
+        'end_job': start_idx + len(recent_jobs) if recent_jobs else 0,
+        'page_range': get_page_range(page, total_pages)  # For pagination buttons
+    }
     
     return render_template('main.html', 
                          job_list=recent_jobs,
                          dropdown_locations=dropdown_locations,
-                         job_section_title="Recent Job Postings",
+                         job_section_title=f"Job Postings - Page {page} of {total_pages}" if total_pages > 1 else "Recent Job Postings",
                          show_apply_button=True,
                          session=session,
                          users=users,
-                         flash_messages=flash_messages)
+                         flash_messages=flash_messages,
+                         pagination=pagination)
+
+# Helper function for pagination range
+def get_page_range(current_page, total_pages, window=2):
+    """Generate page range for pagination with window around current page"""
+    if total_pages <= 1:
+        return []
+    
+    start = max(1, current_page - window)
+    end = min(total_pages + 1, current_page + window + 1)
+    
+    pages = []
+    
+    # Add first page if not in range
+    if start > 1:
+        pages.append(1)
+        if start > 2:
+            pages.append('...')
+    
+    # Add pages in range
+    pages.extend(range(start, end))
+    
+    # Add last page if not in range
+    if end <= total_pages:
+        if end < total_pages:
+            pages.append('...')
+        pages.append(total_pages)
+    
+    return pages
+
+# Optional: Add route for AJAX job loading (for dynamic pagination)
+@app.route('/api/jobs')
+def api_jobs():
+    page = request.args.get('page', 1, type=int)
+    location_filter = request.args.get('location', '')
+    jobs_per_page = 12
+    
+    # Filter by location if provided
+    filtered_df = df
+    if location_filter and location_filter != 'all':
+        filtered_df = df[df['Location'].astype(str).str.replace('-', '') == location_filter]
+    
+    total_jobs = len(filtered_df)
+    total_pages = (total_jobs + jobs_per_page - 1) // jobs_per_page
+    
+    # Get jobs for current page
+    start_idx = (page - 1) * jobs_per_page
+    end_idx = start_idx + jobs_per_page
+    page_jobs = filtered_df.iloc[start_idx:end_idx]
+    
+    jobs = []
+    for _, row in page_jobs.iterrows():
+        jobs.append({
+            'Position': row['Position'],
+            'Company': row['Company'],
+            'Location': str(row['Location']).replace('-', '')
+        })
+    
+    return {
+        'jobs': jobs,
+        'pagination': {
+            'current_page': page,
+            'total_pages': total_pages,
+            'total_jobs': total_jobs,
+            'has_prev': page > 1,
+            'has_next': page < total_pages
+        }
+    }
 
 @app.route("/home")
 def home():
