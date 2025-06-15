@@ -346,6 +346,32 @@
             font-size: 1rem;
         }
         
+        /* Source Badge Styles */
+        .source-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: auto;
+        }
+        
+        .source-badge.csv {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+            border: 1px solid rgba(40, 167, 69, 0.3);
+        }
+        
+        .source-badge.company {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+        
         .job-meta {
             display: flex;
             flex-wrap: wrap;
@@ -516,6 +542,22 @@
             box-shadow: 0 8px 24px rgba(40, 167, 69, 0.4);
         }
         
+        /* Stats info box */
+        .stats-info {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            color: #856404;
+            font-weight: 500;
+        }
+        
+        .stats-info i {
+            color: #ffc107;
+            margin-right: 8px;
+        }
+        
         @media (max-width: 768px) {
             .search-form {
                 grid-template-columns: 1fr;
@@ -578,6 +620,13 @@
             {% endfor %}
         </div>
         {% endif %}
+
+        <!-- Stats Info -->
+        <div class="stats-info">
+            <i class="fas fa-info-circle"></i>
+            <strong>Enhanced Job Portal:</strong> Now showing jobs from both our CSV database and company postings. 
+            Look for source badges on each job card!
+        </div>
 
         <!-- Auth Section for Non-logged Users -->
         {% if not session.username %}
@@ -755,12 +804,25 @@
                             <div class="job-title">{{ job['Position'] }}</div>
                             <div class="job-company">{{ job['Company'] }}</div>
                         </div>
-                        {% if show_match_score and job.get('match_score') %}
-                        <div class="match-score">
-                            <i class="fas fa-star"></i>
-                            {{ job.get('match_score', 0) * 20 }}% Match
+                        <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">
+                            <!-- Source Badge -->
+                            <div class="source-badge {{ job.get('Source', 'csv') }}">
+                                {% if job.get('Source') == 'company' %}
+                                <i class="fas fa-building"></i>
+                                Company
+                                {% else %}
+                                <i class="fas fa-database"></i>
+                                Database
+                                {% endif %}
+                            </div>
+                            
+                            {% if show_match_score and job.get('match_score') %}
+                            <div class="match-score">
+                                <i class="fas fa-star"></i>
+                                {{ job.get('match_score', 0) * 20 }}% Match
+                            </div>
+                            {% endif %}
                         </div>
-                        {% endif %}
                     </div>
                     
                     <div class="job-meta">
@@ -787,6 +849,13 @@
                         </span>
                         {% endif %}
                     </div>
+                    
+                    <!-- Show job description preview if available -->
+                    {% if job.get('Description') %}
+                    <div style="color: #666; font-size: 0.9rem; margin: 1rem 0; line-height: 1.5;">
+                        {{ job['Description'] }}
+                    </div>
+                    {% endif %}
                     
                     {% if show_apply_button and session.username and session.user_role == 'fresh_grad' %}
                     <div class="job-actions">
