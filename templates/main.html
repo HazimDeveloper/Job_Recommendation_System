@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JobMatch Pro - AI-Powered Job Recommendations</title>
+    <title>JobMatch Pro - Enhanced Job Portal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -81,51 +81,385 @@
             padding: 2rem;
         }
         
-        .hero-section {
-            text-align: center;
-            margin-bottom: 3rem;
-            padding: 3rem 0;
-        }
-        
-        .hero-title {
-            font-size: 3rem;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 1rem;
-            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        
-        .hero-subtitle {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .flash-messages {
-            margin-bottom: 2rem;
-        }
-        
-        .alert {
+        /* Enhanced Search and Filter Section */
+        .search-section {
             background: rgba(255, 255, 255, 0.95);
-            border: none;
-            border-radius: 12px;
-            padding: 1rem 1.5rem;
-            margin: 0.5rem 0;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-            border-left: 4px solid #28a745;
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .search-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
             gap: 12px;
         }
         
-        .alert i {
+        .search-title i {
+            color: #667eea;
+        }
+        
+        .search-form {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr auto;
+            gap: 1rem;
+            align-items: end;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .form-group input,
+        .form-group select {
+            padding: 12px 16px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .search-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+        }
+        
+        /* Quick Actions for Students */
+        .quick-actions {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .quick-action-btn {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .quick-action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(40, 167, 69, 0.3);
+        }
+        
+        /* Resume Upload Section */
+        .upload-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .upload-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        
+        .upload-section i {
+            color: #667eea;
+        }
+        
+        .file-upload-wrapper {
+            position: relative;
+            display: inline-block;
+            margin: 1rem 0;
+        }
+        
+        .file-upload {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .file-upload-btn {
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px dashed #667eea;
+            border-radius: 15px;
+            padding: 1.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .file-upload-btn:hover {
+            background: rgba(102, 126, 234, 0.2);
+            border-color: #764ba2;
+        }
+        
+        .file-upload-btn i {
+            font-size: 2rem;
+            color: #667eea;
+        }
+        
+        /* Jobs Section */
+        .jobs-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+        
+        .jobs-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .jobs-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .jobs-title i {
+            color: #667eea;
+        }
+        
+        .results-info {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .jobs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .job-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .job-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .job-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+        }
+        
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .job-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+        
+        .job-company {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        .job-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1rem 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .job-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .job-meta i {
+            color: #667eea;
+        }
+        
+        .match-score {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .job-actions {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-end;
+        }
+        
+        .btn-apply {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-apply:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.3);
+        }
+        
+        .btn-save {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            border: 1px solid #667eea;
+            padding: 10px 15px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-save:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .no-jobs {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #666;
+        }
+        
+        .no-jobs i {
+            font-size: 4rem;
+            color: #ddd;
+            margin-bottom: 1rem;
+        }
+        
+        .no-jobs h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        
+        /* Flash Messages */
+        .flash-messages {
+            margin-bottom: 2rem;
+        }
+        
+        .alert {
+            background: rgba(40, 167, 69, 0.1);
+            border: 1px solid rgba(40, 167, 69, 0.3);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            margin: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
             color: #28a745;
+            font-weight: 500;
+        }
+        
+        .alert i {
             font-size: 1.2rem;
         }
         
+        /* Auth Section */
         .auth-section {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -141,12 +475,6 @@
             font-size: 2rem;
             margin-bottom: 1rem;
             color: #333;
-        }
-        
-        .auth-section p {
-            color: #666;
-            margin-top: 1.5rem;
-            font-style: italic;
         }
         
         .role-buttons {
@@ -188,401 +516,10 @@
             box-shadow: 0 8px 24px rgba(40, 167, 69, 0.4);
         }
         
-        .btn-danger {
-            background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%);
-            box-shadow: 0 4px 16px rgba(220, 53, 69, 0.3);
-        }
-        
-        .btn-danger:hover {
-            box-shadow: 0 8px 24px rgba(220, 53, 69, 0.4);
-        }
-        
-        .upload-section {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 3rem;
-            margin-bottom: 3rem;
-            text-align: center;
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .upload-section h2 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            color: #333;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-        }
-        
-        .upload-section i {
-            color: #667eea;
-        }
-        
-        .file-upload-wrapper {
-            position: relative;
-            display: inline-block;
-            margin: 1.5rem 0;
-        }
-        
-        .file-upload {
-            position: absolute;
-            opacity: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-        }
-        
-        .file-upload-btn {
-            background: rgba(102, 126, 234, 0.1);
-            border: 2px dashed #667eea;
-            border-radius: 15px;
-            padding: 2rem 3rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            min-width: 400px;
-        }
-        
-        .file-upload-btn:hover {
-            background: rgba(102, 126, 234, 0.2);
-            border-color: #764ba2;
-        }
-        
-        .file-upload-btn i {
-            font-size: 3rem;
-            color: #667eea;
-        }
-        
-        .file-upload-btn span {
-            font-weight: 600;
-            color: #333;
-        }
-        
-        .jobs-section {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            position: relative;
-        }
-        
-        .jobs-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        
-        .jobs-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #333;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .jobs-title i {
-            color: #667eea;
-        }
-        
-        .filter-section {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: rgba(102, 126, 234, 0.1);
-            padding: 12px 20px;
-            border-radius: 50px;
-            border: 1px solid rgba(102, 126, 234, 0.2);
-        }
-        
-        .filter-section label {
-            font-weight: 600;
-            color: #333;
-            white-space: nowrap;
-        }
-        
-        .filter-section select {
-            border: none;
-            background: transparent;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-weight: 500;
-            color: #333;
-            cursor: pointer;
-        }
-        
-        .jobs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .job-card {
-            background: white;
-            border-radius: 16px;
-            padding: 1.5rem;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .job-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        
-        .job-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
-        }
-        
-        .job-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-        }
-        
-        .job-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 0.5rem;
-            line-height: 1.3;
-        }
-        
-        .job-company {
-            color: #667eea;
-            font-weight: 600;
-            font-size: 1rem;
-        }
-        
-        .job-location {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #666;
-            font-size: 0.95rem;
-            margin: 1rem 0;
-        }
-        
-        .job-location i {
-            color: #667eea;
-        }
-        
-        .match-score {
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
-        
-        .job-actions {
-            margin-top: 1.5rem;
-            text-align: right;
-        }
-        
-        .btn-apply {
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .btn-apply:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.3);
-        }
-        
-        .no-jobs {
-            text-align: center;
-            padding: 4rem 2rem;
-            color: #666;
-        }
-        
-        .no-jobs i {
-            font-size: 4rem;
-            color: #ddd;
-            margin-bottom: 1rem;
-        }
-        
-        .no-jobs h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: #333;
-        }
-
-        /* Pagination Styles */
-        .pagination-section {
-            margin-top: 3rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .pagination-info {
-            background: rgba(102, 126, 234, 0.1);
-            color: #667eea;
-            padding: 12px 20px;
-            border-radius: 25px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            border: 1px solid rgba(102, 126, 234, 0.2);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .pagination-nav {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: white;
-            padding: 8px;
-            border-radius: 50px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e1e5e9;
-        }
-
-        .pagination-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
-        }
-
-        .pagination-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .pagination-btn.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
-        }
-
-        .pagination-btn.disabled {
-            background: #f8f9fa;
-            color: #6c757d;
-            cursor: not-allowed;
-            opacity: 0.5;
-        }
-
-        .pagination-btn.disabled:hover {
-            transform: none;
-            box-shadow: none;
-        }
-
-        .pagination-btn:not(.active):not(.disabled) {
-            background: #f8f9fa;
-            color: #495057;
-            border-color: #e1e5e9;
-        }
-
-        .pagination-btn:not(.active):not(.disabled):hover {
-            background: #e9ecef;
-            color: #667eea;
-            border-color: #667eea;
-        }
-
-        .pagination-ellipsis {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            color: #6c757d;
-            font-weight: 600;
-        }
-
-        .jobs-count {
-            text-align: center;
-            margin: 2rem 0 1rem;
-            color: #666;
-            font-weight: 500;
-        }
-
-        .jobs-count strong {
-            color: #667eea;
-        }
-
-        /* Loading state */
-        .loading-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(255, 255, 255, 0.9);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 20px;
-            z-index: 10;
-        }
-
-        .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #667eea;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
         @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1rem;
+            .search-form {
+                grid-template-columns: 1fr;
+                gap: 1rem;
             }
             
             .nav {
@@ -591,49 +528,25 @@
                 text-align: center;
             }
             
-            .role-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
             .jobs-grid {
                 grid-template-columns: 1fr;
             }
             
-            .file-upload-btn {
-                min-width: auto;
-                width: 100%;
-            }
-            
-            .jobs-header {
+            .quick-actions {
                 flex-direction: column;
-                align-items: stretch;
-                text-align: center;
-            }
-
-            .pagination-section {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
-            
-            .pagination-nav {
-                order: 2;
-            }
-            
-            .pagination-info {
-                order: 1;
-                text-align: center;
+                align-items: center;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Header -->
     <div class="header">
         <div class="nav">
             <div class="logo">
                 <i class="fas fa-brain"></i>
                 {% if session.username %}
-                <h1>Welcome, {{ users[session.username].name }}!</h1>
+                <h1>Welcome, {{ current_user.name }}!</h1>
                 {% else %}
                 <h1>JobMatch Pro</h1>
                 {% endif %}
@@ -642,9 +555,9 @@
             <div class="user-info">
                 <span class="user-badge">
                     <i class="fas fa-user"></i>
-                    {{ users[session.username].role.replace('_', ' ').title() }}
+                    {{ session.user_role.replace('_', ' ').title() }}
                 </span>
-                <a href="/logout" class="btn btn-danger">
+                <a href="/logout" class="btn">
                     <i class="fas fa-sign-out-alt"></i>
                     Logout
                 </a>
@@ -654,16 +567,6 @@
     </div>
     
     <div class="container">
-        {% if not session.username %}
-        <div class="hero-section">
-            <h1 class="hero-title">AI-Powered Job Matching</h1>
-            <p class="hero-subtitle">
-                Discover your perfect career match with our intelligent recommendation system. 
-                Upload your resume and let AI find the best opportunities for you.
-            </p>
-        </div>
-        {% endif %}
-        
         <!-- Flash Messages -->
         {% if flash_messages %}
         <div class="flash-messages">
@@ -676,7 +579,7 @@
         </div>
         {% endif %}
 
-        <!-- Authentication Section -->
+        <!-- Auth Section for Non-logged Users -->
         {% if not session.username %}
         <div class="auth-section">
             <h3><i class="fas fa-rocket"></i> Get Started Today</h3>
@@ -694,115 +597,156 @@
         </div>
         {% endif %}
 
-        <!-- Role-based Dashboard -->
-        {% if session.username %}
-        <div class="role-buttons">
-            {% if users[session.username].role == 'fresh_grad' %}
-                <a href="/profile" class="btn">
-                    <i class="fas fa-user-circle"></i>
-                    My Profile
-                </a>
-                <a href="/search_jobs" class="btn">
-                    <i class="fas fa-search"></i>
-                    Search Jobs
-                </a>
-                <a href="/my_applications" class="btn">
-                    <i class="fas fa-file-alt"></i>
-                    My Applications
-                </a>
-            {% elif users[session.username].role == 'company' %}
-                <a href="/post_job" class="btn">
-                    <i class="fas fa-plus-circle"></i>
-                    Post Job
-                </a>
-                <a href="/manage_jobs" class="btn">
-                    <i class="fas fa-briefcase"></i>
-                    Manage Jobs
-                </a>
-                <a href="/view_applications" class="btn">
-                    <i class="fas fa-users"></i>
-                    View Applications
-                </a>
-            {% elif users[session.username].role == 'admin' %}
-                <a href="/manage_all_jobs" class="btn">
-                    <i class="fas fa-cogs"></i>
-                    Manage All Jobs
-                </a>
-                <a href="/manage_users" class="btn">
-                    <i class="fas fa-users-cog"></i>
-                    Manage Users
-                </a>
-                <a href="/generate_report" class="btn">
-                    <i class="fas fa-chart-bar"></i>
-                    Generate Report
-                </a>
-            {% endif %}
+        <!-- Quick Actions for Students -->
+        {% if session.username and session.user_role == 'fresh_grad' %}
+        <div class="quick-actions">
+            <a href="/recommendations" class="quick-action-btn">
+                <i class="fas fa-magic"></i>
+                Get Personalized Recommendations
+            </a>
+            <a href="/job_alerts" class="quick-action-btn">
+                <i class="fas fa-bell"></i>
+                Set Job Alerts
+            </a>
+            <a href="/my_applications" class="quick-action-btn">
+                <i class="fas fa-file-alt"></i>
+                My Applications
+            </a>
         </div>
         {% endif %}
 
-        <!-- Resume Upload Section -->
-        {% if not session.username or users[session.username].role == 'fresh_grad' %}
+        <!-- Company Quick Actions -->
+        {% if session.username and session.user_role == 'company' %}
+        <div class="quick-actions">
+            <a href="/post_job" class="quick-action-btn">
+                <i class="fas fa-plus-circle"></i>
+                Post New Job
+            </a>
+            <a href="/manage_jobs" class="quick-action-btn">
+                <i class="fas fa-briefcase"></i>
+                Manage Jobs
+            </a>
+            <a href="/view_applications" class="quick-action-btn">
+                <i class="fas fa-users"></i>
+                View Applications
+            </a>
+        </div>
+        {% endif %}
+
+        <!-- Admin Quick Actions -->
+        {% if session.username and session.user_role == 'admin' %}
+        <div class="quick-actions">
+            <a href="/manage_all_jobs" class="quick-action-btn">
+                <i class="fas fa-cogs"></i>
+                Manage All Jobs
+            </a>
+            <a href="/manage_users" class="quick-action-btn">
+                <i class="fas fa-users-cog"></i>
+                Manage Users
+            </a>
+            <a href="/generate_report" class="quick-action-btn">
+                <i class="fas fa-chart-bar"></i>
+                Generate Report
+            </a>
+        </div>
+        {% endif %}
+
+        <!-- Enhanced Search Section -->
+        <div class="search-section">
+            <div class="search-title">
+                <i class="fas fa-search"></i>
+                Find Your Perfect Job
+            </div>
+            <form method="GET" action="/" class="search-form">
+                <div class="form-group">
+                    <label for="keywords">Keywords</label>
+                    <input type="text" id="keywords" name="keywords" 
+                           placeholder="Job title, skills, company..." 
+                           value="{{ current_filters.keywords or '' }}">
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" name="category">
+                        <option value="">All Categories</option>
+                        {% for cat in categories %}
+                        <option value="{{ cat.name }}" 
+                                {% if current_filters.category == cat.name %}selected{% endif %}>
+                            {{ cat.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <select id="location" name="location">
+                        <option value="">All Locations</option>
+                        {% for loc in locations %}
+                        <option value="{{ loc }}" 
+                                {% if current_filters.location == loc %}selected{% endif %}>
+                            {{ loc }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="job_type">Job Type</label>
+                    <select id="job_type" name="job_type">
+                        <option value="">All Types</option>
+                        {% for type in job_types %}
+                        <option value="{{ type }}" 
+                                {% if current_filters.job_type == type %}selected{% endif %}>
+                            {{ type }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="search-btn">
+                    <i class="fas fa-search"></i>
+                    Search
+                </button>
+            </form>
+        </div>
+
+        <!-- Resume Upload Section for Students -->
+        {% if session.username and session.user_role == 'fresh_grad' %}
         <div class="upload-section">
             <h2>
                 <i class="fas fa-cloud-upload-alt"></i>
-                Smart Resume Analysis
+                Get AI-Powered Job Recommendations
             </h2>
-            {% if session.username %}
             <form method="POST" action="/submit" enctype="multipart/form-data">
                 <div class="file-upload-wrapper">
                     <input type="file" name="userfile" accept=".pdf,.docx,.txt" class="file-upload" id="fileUpload">
                     <div class="file-upload-btn">
                         <i class="fas fa-file-upload"></i>
-                        <span>Choose your resume file</span>
+                        <span>Upload your resume</span>
                         <small>PDF, DOCX, or TXT format</small>
                     </div>
                 </div>
                 <br>
                 <button type="submit" class="btn" style="font-size: 1.1rem; padding: 15px 30px;">
                     <i class="fas fa-magic"></i>
-                    Get AI Recommendations
+                    Get Personalized Recommendations
                 </button>
             </form>
-            {% else %}
-            <p style="color: #666; font-size: 1.1rem;">
-                <i class="fas fa-lock"></i>
-                Please login as a Fresh Graduate to access AI job matching
-            </p>
-            {% endif %}
         </div>
         {% endif %}
 
-        <!-- Job Recommendations Display -->
+        <!-- Jobs Section -->
         <div class="jobs-section">
             <div class="jobs-header">
                 <h2 class="jobs-title">
                     <i class="fas fa-briefcase"></i>
-                    {{ job_section_title or "Featured Opportunities" }}
+                    {{ job_section_title or "Available Opportunities" }}
                 </h2>
-                {% if job_list and dropdown_locations %}
-                <div class="filter-section">
-                    <label for="location-filter">
-                        <i class="fas fa-map-marker-alt"></i>
-                        Filter by Location:
-                    </label>
-                    <select id="location-filter" onchange="filterJobsByLocation()">
-                        <option value="all">All Locations</option>
-                        {% for location in dropdown_locations %}
-                        <option value="{{ location }}">{{ location }}</option>
-                        {% endfor %}
-                    </select>
+                {% if pagination %}
+                <div class="results-info">
+                    Showing {{ pagination.start_job }}-{{ pagination.end_job }} of {{ pagination.total_jobs }} jobs
                 </div>
                 {% endif %}
             </div>
             
             {% if job_list %}
-            <!-- Job Count Display -->
-            {% if pagination %}
-            <div class="jobs-count">
-                Showing <strong>{{ pagination.start_job }}</strong> to <strong>{{ pagination.end_job }}</strong> of <strong>{{ pagination.total_jobs }}</strong> jobs
-            </div>
-            {% endif %}
-
             <div class="jobs-grid">
                 {% for job in job_list %}
                 <div class="job-card">
@@ -811,23 +755,46 @@
                             <div class="job-title">{{ job['Position'] }}</div>
                             <div class="job-company">{{ job['Company'] }}</div>
                         </div>
-                        {% if show_match_score and job.get('match') %}
+                        {% if show_match_score and job.get('match_score') %}
                         <div class="match-score">
                             <i class="fas fa-star"></i>
-                            {{ "%.0f"|format((1 - job.get('match', 1)) * 100) }}% Match
+                            {{ job.get('match_score', 0) * 20 }}% Match
                         </div>
                         {% endif %}
                     </div>
                     
-                    <div class="job-location">
-                        <i class="fas fa-map-marker-alt"></i>
-                        {{ job['Location'] }}
+                    <div class="job-meta">
+                        <span>
+                            <i class="fas fa-map-marker-alt"></i>
+                            {{ job['Location'] }}
+                        </span>
+                        {% if job.get('Category') %}
+                        <span>
+                            <i class="fas fa-tag"></i>
+                            {{ job['Category'] }}
+                        </span>
+                        {% endif %}
+                        {% if job.get('Type') %}
+                        <span>
+                            <i class="fas fa-clock"></i>
+                            {{ job['Type'] }}
+                        </span>
+                        {% endif %}
+                        {% if job.get('Salary') %}
+                        <span>
+                            <i class="fas fa-money-bill-wave"></i>
+                            {{ job['Salary'] }}
+                        </span>
+                        {% endif %}
                     </div>
                     
-                    {% if show_apply_button and session.username and users[session.username].role == 'fresh_grad' %}
+                    {% if show_apply_button and session.username and session.user_role == 'fresh_grad' %}
                     <div class="job-actions">
+                        <button class="btn-save">
+                            <i class="fas fa-bookmark"></i>
+                        </button>
                         <form method="POST" action="/apply_job" style="display: inline;">
-                            <input type="hidden" name="job_id" value="csv_{{ loop.index0 }}">
+                            <input type="hidden" name="job_id" value="{{ job.get('id', loop.index0) }}">
                             <button type="submit" class="btn-apply">
                                 <i class="fas fa-paper-plane"></i>
                                 Apply Now
@@ -839,59 +806,37 @@
                 {% endfor %}
             </div>
 
-            <!-- Pagination Section -->
+            <!-- Pagination -->
             {% if pagination and pagination.total_pages > 1 %}
-            <div class="pagination-section">
-                <div class="pagination-info">
-                    <i class="fas fa-info-circle"></i>
-                    Page {{ pagination.current_page }} of {{ pagination.total_pages }}
-                </div>
+            <div style="display: flex; justify-content: center; margin-top: 2rem; gap: 1rem;">
+                {% if pagination.has_prev %}
+                <a href="/?page={{ pagination.prev_page }}" class="btn">
+                    <i class="fas fa-chevron-left"></i>
+                    Previous
+                </a>
+                {% endif %}
                 
-                <nav class="pagination-nav">
-                    <!-- Previous button -->
-                    {% if pagination.has_prev %}
-                    <a href="{{ url_for('hello', page=pagination.prev_page) }}" class="pagination-btn" title="Previous page">
-                        <i class="fas fa-chevron-left"></i>
-                    </a>
-                    {% else %}
-                    <span class="pagination-btn disabled">
-                        <i class="fas fa-chevron-left"></i>
-                    </span>
-                    {% endif %}
-                    
-                    <!-- Page numbers -->
-                    {% for page_num in pagination.page_range %}
-                        {% if page_num == '...' %}
-                        <span class="pagination-ellipsis">...</span>
-                        {% elif page_num == pagination.current_page %}
-                        <span class="pagination-btn active">{{ page_num }}</span>
-                        {% else %}
-                        <a href="{{ url_for('hello', page=page_num) }}" class="pagination-btn">{{ page_num }}</a>
-                        {% endif %}
-                    {% endfor %}
-                    
-                    <!-- Next button -->
-                    {% if pagination.has_next %}
-                    <a href="{{ url_for('hello', page=pagination.next_page) }}" class="pagination-btn" title="Next page">
-                        <i class="fas fa-chevron-right"></i>
-                    </a>
-                    {% else %}
-                    <span class="pagination-btn disabled">
-                        <i class="fas fa-chevron-right"></i>
-                    </span>
-                    {% endif %}
-                </nav>
+                <span style="display: flex; align-items: center; color: #666; font-weight: 600;">
+                    Page {{ pagination.current_page }} of {{ pagination.total_pages }}
+                </span>
+                
+                {% if pagination.has_next %}
+                <a href="/?page={{ pagination.next_page }}" class="btn">
+                    Next
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+                {% endif %}
             </div>
             {% endif %}
 
             {% else %}
             <div class="no-jobs">
                 <i class="fas fa-search"></i>
-                <h3>No Opportunities Available</h3>
-                {% if session.username and users[session.username].role == 'fresh_grad' %}
-                <p>Upload your resume above to discover personalized job recommendations!</p>
+                <h3>No Jobs Found</h3>
+                {% if session.username and session.user_role == 'fresh_grad' %}
+                <p>Try adjusting your search filters or upload your resume for personalized recommendations!</p>
                 {% else %}
-                <p>Check back soon for new opportunities</p>
+                <p>No jobs match your current search criteria. Try different filters.</p>
                 {% endif %}
             </div>
             {% endif %}
@@ -899,155 +844,12 @@
     </div>
 
     <script>
-        function filterJobsByLocation() {
-            var locationFilter = document.getElementById("location-filter");
-            var selectedLocation = locationFilter.value;
-            var jobCards = document.querySelectorAll(".job-card");
-
-            jobCards.forEach(function(card) {
-                var locationElement = card.querySelector(".job-location");
-                if (locationElement) {
-                    var locationText = locationElement.textContent.trim();
-                    if (selectedLocation === "all" || locationText.includes(selectedLocation)) {
-                        card.style.display = "block";
-                    } else {
-                        card.style.display = "none";
-                    }
-                }
-            });
-        }
-        
         // File upload feedback
         document.getElementById('fileUpload')?.addEventListener('change', function(e) {
             const fileName = e.target.files[0]?.name;
             const uploadBtn = document.querySelector('.file-upload-btn span');
             if (fileName) {
                 uploadBtn.textContent = `Selected: ${fileName}`;
-            }
-        });
-
-
-        // Optional: Enhanced pagination with AJAX loading
-        function loadPage(page, showLoader = true) {
-            if (showLoader) {
-                // Show loading overlay
-                const jobsSection = document.querySelector('.jobs-section');
-                const loadingOverlay = document.createElement('div');
-                loadingOverlay.className = 'loading-overlay';
-                loadingOverlay.innerHTML = '<div class="loading-spinner"></div>';
-                jobsSection.style.position = 'relative';
-                jobsSection.appendChild(loadingOverlay);
-            }
-            
-            const currentLocation = document.getElementById('location-filter')?.value || 'all';
-            const url = `/api/jobs?page=${page}&location=${currentLocation}`;
-            
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    // Update jobs grid
-                    updateJobsGrid(data.jobs);
-                    
-                    // Update pagination
-                    updatePagination(data.pagination);
-                    
-                    // Update URL without page reload
-                    const newUrl = page === 1 ? '/' : `/page/${page}`;
-                    window.history.pushState({page: page}, '', newUrl);
-                    
-                    // Remove loading overlay
-                    const overlay = document.querySelector('.loading-overlay');
-                    if (overlay) overlay.remove();
-                    
-                    // Scroll to top of jobs section
-                    document.querySelector('.jobs-section').scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'start' 
-                    });
-                })
-                .catch(error => {
-                    console.error('Error loading jobs:', error);
-                    // Remove loading overlay
-                    const overlay = document.querySelector('.loading-overlay');
-                    if (overlay) overlay.remove();
-                });
-        }
-
-        function updateJobsGrid(jobs) {
-            const jobsGrid = document.querySelector('.jobs-grid');
-            if (!jobs.length) {
-                jobsGrid.innerHTML = `
-                    <div class="no-jobs">
-                        <i class="fas fa-search"></i>
-                        <h3>No Jobs Found</h3>
-                        <p>No jobs match your current filters.</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            const isLoggedIn = window.session && window.session.username;
-            const isStudent = isLoggedIn && window.users[window.session.username]?.role === 'fresh_grad';
-            
-            jobsGrid.innerHTML = jobs.map((job, index) => `
-                <div class="job-card">
-                    <div class="job-header">
-                        <div>
-                            <div class="job-title">${job.Position}</div>
-                            <div class="job-company">${job.Company}</div>
-                        </div>
-                    </div>
-                    <div class="job-location">
-                        <i class="fas fa-map-marker-alt"></i>
-                        ${job.Location}
-                    </div>
-                    ${isStudent ? `
-                    <div class="job-actions">
-                        <form method="POST" action="/apply_job" style="display: inline;">
-                            <input type="hidden" name="job_id" value="csv_${index}">
-                            <button type="submit" class="btn-apply">
-                                <i class="fas fa-paper-plane"></i>
-                                Apply Now
-                            </button>
-                        </form>
-                    </div>
-                    ` : ''}
-                </div>
-            `).join('');
-        }
-
-        function updatePagination(pagination) {
-            // Update jobs count
-            const jobsCount = document.querySelector('.jobs-count');
-            if (jobsCount) {
-                jobsCount.innerHTML = `
-                    Showing <strong>${pagination.start_job || 0}</strong> to <strong>${pagination.end_job || 0}</strong> of <strong>${pagination.total_jobs}</strong> jobs
-                `;
-            }
-
-            // Update pagination info
-            const paginationInfo = document.querySelector('.pagination-info');
-            if (paginationInfo) {
-                paginationInfo.innerHTML = `
-                    <i class="fas fa-info-circle"></i>
-                    Page ${pagination.current_page} of ${pagination.total_pages}
-                `;
-            }
-        }
-
-        // Handle browser back/forward buttons
-        window.addEventListener('popstate', function(event) {
-            const page = event.state?.page || 1;
-            loadPage(page, false);
-        });
-
-        // Smooth scroll to top on page load
-        window.addEventListener('load', function() {
-            if (window.location.hash === '#top') {
-                document.querySelector('.jobs-section').scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'start' 
-                });
             }
         });
     </script>

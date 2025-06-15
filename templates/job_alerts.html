@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Job Alerts - JobMatch Pro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+            color: white;
+            padding: 2.5rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="30" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="70" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="80" r="2.5" fill="rgba(255,255,255,0.1)"/></svg>');
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .header i {
+            font-size: 2.5rem;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+        
+        .content {
+            padding: 3rem;
+        }
+        
+        .info-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        
+        .info-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .info-section p {
+            font-size: 1rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .alert-form {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e1e5e9;
+            margin-bottom: 3rem;
+        }
+        
+        .form-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .form-title i {
+            color: #ffc107;
+        }
+        
+        .form-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        
+        .form-group {
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .form-group label i {
+            color: #ffc107;
+            width: 16px;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 500;
+            background: white;
+            transition: all 0.3s ease;
+            color: #333;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ffc107;
+            box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.1);
+            transform: translateY(-1px);
+        }
+        
+        .form-group input::placeholder {
+            color: #999;
+            font-weight: 400;
+        }
+        
+        .frequency-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 8px;
+        }
+        
+        .frequency-option {
+            position: relative;
+        }
+        
+        .frequency-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            cursor: pointer;
+        }
+        
+        .frequency-card {
+            background: white;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .frequency-card i {
+            font-size: 1.5rem;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        
+        .frequency-card h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        
+        .frequency-card p {
+            font-size: 0.8rem;
+            color: #666;
+            margin: 0;
+        }
+        
+        .frequency-option input[type="radio"]:checked + .frequency-card {
+            border-color: #ffc107;
+            background: rgba(255, 193, 7, 0.05);
+        }
+        
+        .frequency-option input[type="radio"]:checked + .frequency-card i {
+            color: #ffc107;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 160px;
+            justify-content: center;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+            color: white;
+            box-shadow: 0 8px 24px rgba(255, 193, 7, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(255, 193, 7, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+            box-shadow: 0 4px 16px rgba(108, 117, 125, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #545b62;
+            transform: translateY(-1px);
+        }
+        
+        .alert-tips {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .tips-title {
+            color: #ffc107;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .tips-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .tips-list li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            color: #666;
+        }
+        
+        .tips-list i {
+            margin-top: 2px;
+            font-size: 0.8rem;
+            color: #ffc107;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+            }
+            
+            .header {
+                padding: 2rem 1.5rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .content {
+                padding: 2rem 1.5rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <h1>
+                    <i class="fas fa-bell"></i>
+                    Job Alert Center
+                </h1>
+                <p>Stay updated with the latest job opportunities that match your preferences</p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="info-section">
+                <h3>
+                    <i class="fas fa-magic"></i>
+                    Never Miss Your Dream Job
+                </h3>
+                <p>
+                    Set up personalized job alerts and get notified when new opportunities that match your skills and preferences become available. Our smart matching system will send you relevant jobs directly to your email.
+                </p>
+            </div>
+            
+            <div class="alert-tips">
+                <div class="tips-title">
+                    <i class="fas fa-lightbulb"></i>
+                    Tips for Effective Job Alerts
+                </div>
+                <ul class="tips-list">
+                    <li><i class="fas fa-check"></i> Use specific keywords related to your desired role</li>
+                    <li><i class="fas fa-check"></i> Choose locations where you're willing to work</li>
+                    <li><i class="fas fa-check"></i> Select relevant categories to narrow down results</li>
+                    <li><i class="fas fa-check"></i> Start with weekly alerts to avoid overwhelming your inbox</li>
+                </ul>
+            </div>
+            
+            <div class="alert-form">
+                <h2 class="form-title">
+                    <i class="fas fa-plus-circle"></i>
+                    Create New Job Alert
+                </h2>
+                
+                <form method="POST">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-search"></i>
+                                Keywords
+                            </label>
+                            <input type="text" name="keywords" 
+                                   placeholder="e.g. software engineer, python, react..." 
+                                   required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Location
+                                </label>
+                                <input type="text" name="location" 
+                                       placeholder="e.g. Kuala Lumpur, Remote">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>
+                                    <i class="fas fa-tag"></i>
+                                    Category
+                                </label>
+                                <select name="category_id">
+                                    <option value="">Any Category</option>
+                                    {% for category in categories %}
+                                    <option value="{{ category.id }}">{{ category.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-clock"></i>
+                                Job Type
+                            </label>
+                            <select name="job_type">
+                                <option value="">Any Type</option>
+                                {% for type in job_types %}
+                                <option value="{{ type }}">{{ type }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-calendar"></i>
+                                Alert Frequency
+                            </label>
+                            <div class="frequency-selector">
+                                <div class="frequency-option">
+                                    <input type="radio" id="weekly" name="frequency" value="weekly" checked>
+                                    <label for="weekly" class="frequency-card">
+                                        <i class="fas fa-calendar-week"></i>
+                                        <h4>Weekly</h4>
+                                        <p>Every Monday</p>
+                                    </label>
+                                </div>
+                                <div class="frequency-option">
+                                    <input type="radio" id="daily" name="frequency" value="daily">
+                                    <label for="daily" class="frequency-card">
+                                        <i class="fas fa-calendar-day"></i>
+                                        <h4>Daily</h4>
+                                        <p>Every morning</p>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-bell"></i>
+                            Create Alert
+                        </button>
+                        <a href="/" class="btn btn-secondary">
+                            <i class="fas fa-times"></i>
+                            Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Flash Messages -->
+            {% if flash_messages %}
+            <div class="flash-messages">
+                {% for message in flash_messages %}
+                <div style="background: rgba(40, 167, 69, 0.1); border: 1px solid rgba(40, 167, 69, 0.3); 
+                            border-radius: 12px; padding: 1rem 1.5rem; margin: 0.5rem 0; 
+                            display: flex; align-items: center; gap: 12px; color: #28a745;">
+                    <i class="fas fa-check-circle"></i>
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

@@ -19,7 +19,7 @@
         }
         
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
@@ -32,7 +32,7 @@
         .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 2.5rem;
+            padding: 3rem;
             text-align: center;
             position: relative;
         }
@@ -53,31 +53,92 @@
         }
         
         .header h1 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
+            gap: 20px;
         }
         
         .header i {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
         }
         
         .company-badge {
             background: rgba(255, 255, 255, 0.2);
-            padding: 8px 20px;
-            border-radius: 25px;
-            font-size: 1.1rem;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 1.2rem;
             font-weight: 500;
             margin-top: 1rem;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .form-container {
             padding: 3rem;
+        }
+        
+        .tips-section {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tips-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="15" cy="25" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="85" cy="15" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="60" cy="85" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+        }
+        
+        .tips-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .tips-title {
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .tip-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .tip-item i {
+            margin-top: 2px;
+            font-size: 0.9rem;
+        }
+        
+        .tip-item span {
+            font-size: 0.95rem;
+            line-height: 1.4;
         }
         
         .form-grid {
@@ -85,7 +146,34 @@
             gap: 2rem;
         }
         
+        .form-section {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e1e5e9;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .section-title i {
+            color: #667eea;
+            font-size: 1.3rem;
+        }
+        
         .form-group {
+            margin-bottom: 1.5rem;
             position: relative;
         }
         
@@ -102,7 +190,8 @@
         
         .form-group label i {
             color: #667eea;
-            width: 20px;
+            width: 18px;
+            font-size: 1rem;
         }
         
         .required {
@@ -152,9 +241,15 @@
             gap: 2rem;
         }
         
+        .form-row-triple {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
+        }
+        
         .job-type-selector {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 12px;
             margin-top: 10px;
         }
@@ -176,12 +271,18 @@
             background: white;
             border: 2px solid #e1e5e9;
             border-radius: 12px;
-            padding: 12px 8px;
+            padding: 1rem;
             text-align: center;
             transition: all 0.3s ease;
             cursor: pointer;
             font-weight: 600;
             font-size: 0.9rem;
+        }
+        
+        .job-type-card i {
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+            color: #666;
         }
         
         .job-type-option input[type="radio"]:checked + .job-type-card {
@@ -190,13 +291,28 @@
             color: #667eea;
         }
         
+        .job-type-option input[type="radio"]:checked + .job-type-card i {
+            color: #667eea;
+        }
+        
+        .char-counter {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            font-size: 0.8rem;
+            color: #999;
+            background: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        
         .form-actions {
             display: flex;
             gap: 1rem;
             justify-content: center;
             margin-top: 3rem;
             padding-top: 2rem;
-            border-top: 1px solid #eee;
+            border-top: 2px solid #f0f0f0;
         }
         
         .btn {
@@ -211,7 +327,7 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            min-width: 160px;
+            min-width: 180px;
             justify-content: center;
         }
         
@@ -239,10 +355,11 @@
         
         .preview-section {
             background: rgba(102, 126, 234, 0.05);
-            border: 1px solid rgba(102, 126, 234, 0.1);
+            border: 2px dashed rgba(102, 126, 234, 0.3);
             border-radius: 16px;
             padding: 2rem;
             margin: 2rem 0;
+            text-align: center;
         }
         
         .preview-title {
@@ -251,41 +368,44 @@
             margin-bottom: 1rem;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
         }
         
-        .tips-section {
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-            color: white;
-            padding: 1.5rem;
-            border-radius: 16px;
-            margin-bottom: 2rem;
+        .help-text {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
         }
         
-        .tips-title {
-            font-weight: 700;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .skills-input {
+            position: relative;
         }
         
-        .tips-list {
-            list-style: none;
-            margin: 0;
-            padding: 0;
+        .skills-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #e1e5e9;
+            border-radius: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 10;
+            display: none;
         }
         
-        .tips-list li {
-            margin-bottom: 8px;
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
+        .skill-suggestion {
+            padding: 10px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s;
         }
         
-        .tips-list i {
-            margin-top: 2px;
-            font-size: 0.8rem;
+        .skill-suggestion:hover {
+            background: #f8f9fa;
         }
         
         @media (max-width: 768px) {
@@ -300,14 +420,15 @@
             .header h1 {
                 font-size: 2rem;
                 flex-direction: column;
-                gap: 10px;
+                gap: 15px;
             }
             
             .form-container {
                 padding: 2rem 1.5rem;
             }
             
-            .form-row {
+            .form-row,
+            .form-row-triple {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
@@ -321,6 +442,10 @@
                 width: 100%;
                 max-width: 300px;
             }
+            
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -330,7 +455,7 @@
             <div class="header-content">
                 <h1>
                     <i class="fas fa-plus-circle"></i>
-                    Post New Job
+                    Post New Job Opportunity
                 </h1>
                 <div class="company-badge">
                     <i class="fas fa-building"></i>
@@ -341,37 +466,81 @@
         
         <div class="form-container">
             <div class="tips-section">
-                <div class="tips-title">
-                    <i class="fas fa-lightbulb"></i>
-                    Tips for Creating Great Job Posts
+                <div class="tips-content">
+                    <div class="tips-title">
+                        <i class="fas fa-lightbulb"></i>
+                        Tips for Creating Effective Job Posts
+                    </div>
+                    <div class="tips-grid">
+                        <div class="tip-item">
+                            <i class="fas fa-check"></i>
+                            <span>Write clear, specific job titles that candidates will search for</span>
+                        </div>
+                        <div class="tip-item">
+                            <i class="fas fa-check"></i>
+                            <span>Include key responsibilities and day-to-day activities</span>
+                        </div>
+                        <div class="tip-item">
+                            <i class="fas fa-check"></i>
+                            <span>List both required and preferred qualifications</span>
+                        </div>
+                        <div class="tip-item">
+                            <i class="fas fa-check"></i>
+                            <span>Mention company culture and growth opportunities</span>
+                        </div>
+                        <div class="tip-item">
+                            <i class="fas fa-check"></i>
+                            <span>Be transparent about salary and benefits</span>
+                        </div>
+                        <div class="tip-item">
+                            <i class="fas fa-check"></i>
+                            <span>Use keywords that candidates will search for</span>
+                        </div>
+                    </div>
                 </div>
-                <ul class="tips-list">
-                    <li><i class="fas fa-check"></i> Write clear, engaging job titles</li>
-                    <li><i class="fas fa-check"></i> Include specific skills and qualifications</li>
-                    <li><i class="fas fa-check"></i> Mention company culture and benefits</li>
-                    <li><i class="fas fa-check"></i> Be transparent about salary and expectations</li>
-                </ul>
             </div>
             
             <form method="POST">
-                <div class="form-grid">
+                <!-- Basic Information Section -->
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-info-circle"></i>
+                        Basic Job Information
+                    </h3>
+                    
                     <div class="form-group">
                         <label>
                             <i class="fas fa-briefcase"></i>
                             Job Title <span class="required">*</span>
                         </label>
-                        <input type="text" name="title" placeholder="e.g. Senior Software Engineer" required>
+                        <input type="text" name="title" placeholder="e.g. Senior Software Engineer, Marketing Manager, Data Analyst" required>
+                        <div class="help-text">Use a clear, specific title that candidates will search for</div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label>
+                                <i class="fas fa-tag"></i>
+                                Job Category <span class="required">*</span>
+                            </label>
+                            <select name="category_id" required>
+                                <option value="">Select a category</option>
+                                {% for category in categories %}
+                                <option value="{{ category.id }}">{{ category.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>
                                 <i class="fas fa-map-marker-alt"></i>
                                 Location <span class="required">*</span>
                             </label>
-                            <input type="text" name="location" placeholder="e.g. Kuala Lumpur, Malaysia" required>
+                            <input type="text" name="location" placeholder="e.g. Kuala Lumpur, Malaysia / Remote" required>
                         </div>
-                        
+                    </div>
+                    
+                    <div class="form-row">
                         <div class="form-group">
                             <label>
                                 <i class="fas fa-money-bill-wave"></i>
@@ -379,54 +548,90 @@
                             </label>
                             <input type="text" name="salary" placeholder="e.g. RM 5,000 - RM 8,000 per month">
                         </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>
-                            <i class="fas fa-clock"></i>
-                            Job Type
-                        </label>
-                        <div class="job-type-selector">
-                            <div class="job-type-option">
-                                <input type="radio" id="fulltime" name="job_type" value="Full-time" checked>
-                                <label for="fulltime" class="job-type-card">Full-time</label>
-                            </div>
-                            <div class="job-type-option">
-                                <input type="radio" id="parttime" name="job_type" value="Part-time">
-                                <label for="parttime" class="job-type-card">Part-time</label>
-                            </div>
-                            <div class="job-type-option">
-                                <input type="radio" id="contract" name="job_type" value="Contract">
-                                <label for="contract" class="job-type-card">Contract</label>
-                            </div>
-                            <div class="job-type-option">
-                                <input type="radio" id="internship" name="job_type" value="Internship">
-                                <label for="internship" class="job-type-card">Internship</label>
+                        
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-clock"></i>
+                                Employment Type
+                            </label>
+                            <div class="job-type-selector">
+                                <div class="job-type-option">
+                                    <input type="radio" id="fulltime" name="job_type" value="Full-time" checked>
+                                    <label for="fulltime" class="job-type-card">
+                                        <i class="fas fa-briefcase"></i>
+                                        <div>Full-time</div>
+                                    </label>
+                                </div>
+                                <div class="job-type-option">
+                                    <input type="radio" id="parttime" name="job_type" value="Part-time">
+                                    <label for="parttime" class="job-type-card">
+                                        <i class="fas fa-clock"></i>
+                                        <div>Part-time</div>
+                                    </label>
+                                </div>
+                                <div class="job-type-option">
+                                    <input type="radio" id="contract" name="job_type" value="Contract">
+                                    <label for="contract" class="job-type-card">
+                                        <i class="fas fa-file-contract"></i>
+                                        <div>Contract</div>
+                                    </label>
+                                </div>
+                                <div class="job-type-option">
+                                    <input type="radio" id="internship" name="job_type" value="Internship">
+                                    <label for="internship" class="job-type-card">
+                                        <i class="fas fa-graduation-cap"></i>
+                                        <div>Internship</div>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                
+                <!-- Job Description Section -->
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-file-alt"></i>
+                        Job Description & Details
+                    </h3>
                     
                     <div class="form-group">
                         <label>
-                            <i class="fas fa-file-alt"></i>
+                            <i class="fas fa-align-left"></i>
                             Job Description <span class="required">*</span>
                         </label>
-                        <textarea name="description" placeholder="Describe the role, responsibilities, and what the candidate will be doing. Include information about your company culture and what makes this position exciting..." required></textarea>
+                        <textarea name="description" placeholder="Describe the role, key responsibilities, day-to-day activities, and what makes this position exciting. Include information about your company culture, team structure, and growth opportunities..." required></textarea>
+                        <div class="help-text">Provide a comprehensive overview of the role and your company</div>
                     </div>
                     
                     <div class="form-group">
                         <label>
                             <i class="fas fa-list-check"></i>
-                            Requirements <span class="required">*</span>
+                            Requirements & Qualifications <span class="required">*</span>
                         </label>
-                        <textarea name="requirements" placeholder="List the required skills, qualifications, and experience. Include both technical and soft skills, education requirements, and any certifications needed..." required></textarea>
+                        <textarea name="requirements" placeholder="List the required skills, qualifications, and experience. Include:
+• Education requirements (e.g., Bachelor's degree in Computer Science)
+• Years of experience needed
+• Technical skills and tools
+• Soft skills and personal qualities
+• Any certifications or licenses required
+• Language requirements" required></textarea>
+                        <div class="help-text">Be specific about must-have vs. nice-to-have qualifications</div>
                     </div>
+                </div>
+                
+                <div class="preview-section">
+                    <div class="preview-title">
+                        <i class="fas fa-eye"></i>
+                        Preview Mode
+                    </div>
+                    <p>Your job post will be reviewed by our admin team before going live. This typically takes 24-48 hours.</p>
                 </div>
                 
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-rocket"></i>
-                        Post Job
+                        Post Job for Review
                     </button>
                     <a href="/manage_jobs" class="btn btn-secondary">
                         <i class="fas fa-times"></i>
@@ -436,5 +641,47 @@
             </form>
         </div>
     </div>
+
+    <script>
+        // Character counter for textareas
+        document.querySelectorAll('textarea').forEach(textarea => {
+            const counter = document.createElement('div');
+            counter.className = 'char-counter';
+            textarea.parentNode.style.position = 'relative';
+            textarea.parentNode.appendChild(counter);
+            
+            function updateCounter() {
+                counter.textContent = `${textarea.value.length} characters`;
+            }
+            
+            textarea.addEventListener('input', updateCounter);
+            updateCounter();
+        });
+
+        // Form validation enhancement
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const title = document.querySelector('input[name="title"]').value;
+            const description = document.querySelector('textarea[name="description"]').value;
+            const requirements = document.querySelector('textarea[name="requirements"]').value;
+            
+            if (title.length < 5) {
+                alert('Job title should be at least 5 characters long');
+                e.preventDefault();
+                return;
+            }
+            
+            if (description.length < 50) {
+                alert('Job description should be at least 50 characters long');
+                e.preventDefault();
+                return;
+            }
+            
+            if (requirements.length < 30) {
+                alert('Requirements should be at least 30 characters long');
+                e.preventDefault();
+                return;
+            }
+        });
+    </script>
 </body>
 </html>
